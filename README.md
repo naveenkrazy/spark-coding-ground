@@ -28,8 +28,10 @@ $sbt package builds the jar file
 - Spark-Submit command to run locally: 
     ./bin/spark2-submit \
     --master local[*] --driver-memory 4G \
-    --class com.secureworks.codingchallenge.GenerateMetrics --topRecordsSize 5 --consoleResultSize 20 \
-    <path-to-compiled-jar>/spark-metrics_2.11-0.1.jar
+    --class com.secureworks.codingchallenge.GenerateMetrics \
+    <path-to-compiled-jar>/spark-metrics_2.11-0.1.jar --topRecordsSize 5 --consoleResultSize 20 
+    
+Ex: spark-submit --master local[*] --driver-memory 4G --class com.secureworks.codingchallenge.GenerateMetrics /Users/nkurap/Documents/proj_work/spark-metrics_2.11-0.1.jar --topRecordsSize 5 --consoleResultSize 20
       
 **** project can also be run from Intellij Idea by setting runtime configs for object GenerateMetrics.
 
