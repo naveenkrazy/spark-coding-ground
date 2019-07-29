@@ -1,6 +1,5 @@
 package com.secureworks.codingchallenge
 
-
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.expressions.Window
 import org.apache.spark.sql.functions.{col, rank, regexp_extract}
@@ -18,6 +17,9 @@ object GenerateMetrics extends App {
   logger.setLevel(Level.INFO)
 
   Logger.getLogger("org.apache.spark").setLevel(Level.WARN)
+
+  private val trueValue = true
+  private val falseValue = false
 
     logger.info("Extracting parameters from the console Args.....")
     val parameters = if(args.length >= 2) {
@@ -75,25 +77,25 @@ object GenerateMetrics extends App {
 
     val baseSchema = StructType(
       List(
-        StructField("requestDate", StringType, true),
-        StructField("visitor", StringType, true),
-        StructField("totalBytes", StringType, true),
-        StructField("responseCode", StringType, true),
-        StructField("requestUrl", StringType, true)
+        StructField("requestDate", StringType, trueValue),
+        StructField("visitor", StringType, trueValue),
+        StructField("totalBytes", StringType, trueValue),
+        StructField("responseCode", StringType, trueValue),
+        StructField("requestUrl", StringType, trueValue)
       )
     )
 
     logger.info("creating dataFrame from rdd to derive the metrics...")
     val src_df = spark.createDataFrame(srcRdd, baseSchema)
 
-    src_df.show(20, false)
+    src_df.show(20, falseValue)
 
     val base_df = src_df.select(col("visitor"), col("requestDate"),
       regexp_extract($"requestUrl", """\"(\S+)\s(\S+)\s*(\S*)\"""", 1).alias("method"),
       regexp_extract($"requestUrl", """\"(\S+)\s(\S+)\s*(\S*)\"""", 2).alias("endpoint"),
       regexp_extract($"requestUrl", """\"(\S+)\s(\S+)\s*(\S*)\"""", 3).alias("protocol"),
       col("responseCode").cast("integer").alias("response"))
-      .filter($"visitor" =!= ("") || $"response".isNotNull)
+      .filter($"visitor" =!= "" || $"response".isNotNull)
 
   srcRdd.unpersist()
 
@@ -101,17 +103,17 @@ object GenerateMetrics extends App {
 
   logger.info(s"Total count for data frame after parsing all the data: ${base_df.count.toString}")
 
-  base_df.show(20, false)
+  base_df.show(20, falseValue)
 
     val topVisitsByAddress = getTopVisitsFromDF(base_df, 10, Some("visitor"))
     val topVisitsByUrl = getTopVisitsFromDF(base_df, 10, Some("endPoint"))
 
 
     logger.info("showing top visits by Visitors.....")
-    topVisitsByAddress.show(30, false)
+    topVisitsByAddress.show(30, falseValue)
 
     logger.info("showing top visits by Url.....")
-    topVisitsByUrl.show(30, false)
+    topVisitsByUrl.show(30, falseValue)
 
     spark.catalog.clearCache()
 
