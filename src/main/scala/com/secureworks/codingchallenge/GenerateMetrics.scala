@@ -11,9 +11,6 @@ import org.apache.spark.{SparkConf, SparkFiles}
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 
-import scala.util.Try
-
-
 
 object GenerateMetrics extends App {
 
@@ -119,7 +116,6 @@ object GenerateMetrics extends App {
     spark.catalog.clearCache()
 
     spark.stop()
-
 
 
 
