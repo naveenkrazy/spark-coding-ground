@@ -3,7 +3,7 @@ import org.apache.spark.sql.DataFrame
 import org.scalatest.{FunSpec, GivenWhenThen}
 
 class ProcessUtilsSpec extends FunSpec with GivenWhenThen with SparkTest {
-  
+
   describe("Testing Extract parameters method..") {
     it("should extract parameters as Map given the list of environment args array") {
       Given("Command line arguments array")
@@ -76,14 +76,25 @@ class ProcessUtilsSpec extends FunSpec with GivenWhenThen with SparkTest {
 
     }
 
-
   }
 
+  describe("Test to validate the Date Formatter...") {
+    it("should result the generate the valid date with requested format...") {
 
+      Given("valid input and output patterns....")
+      val srcFormat = "dd/MMM/yyyy:HH:mm:ss"
+      val resFormat = "yyyy/MM/dd"
+      val sampleDate = "01/Jul/1995:00:00:01"
+      val fullDate = "01/Jul/1995:00:00:01 -0400"
 
+      Then("test the generated result against expected pattern....")
+      val result = ProcessUtils.getFormattedDate(sampleDate, Some(srcFormat), Some(resFormat))
+      val defaultOut = ProcessUtils.getFormattedDate(fullDate)
 
+      assert(result == "1995/07/01")
+      assert(defaultOut == "1995-07-01")
 
-
-
+    }
+  }
 
 }
