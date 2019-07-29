@@ -1,11 +1,13 @@
 # spark-coding-ground
-This Coding project Reads Log data from FTP URL and process in Spark framework to derive metrics. Data Wrangling clean up and validations are handled by internal logic
+This Coding project reads log data from FTP URL and process in Spark framework to derive metrics. Data Wrangling clean up and validations are handled by internal logic
 
 # Results
 
 These are captured from the spark run locally. DisplaySize and top records size to display can be configured to runtime arguments.
 
 1. Daily Top visits by url
+
+
  
 +-----------+----------------------------+----------+
 |requestDate|endPoint                    |freq_count|

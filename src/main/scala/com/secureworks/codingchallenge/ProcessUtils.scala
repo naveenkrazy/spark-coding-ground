@@ -10,7 +10,7 @@ import scala.util.matching.Regex
 
 object ProcessUtils {
 
-  def extractParameters(args: Array[String], requiredParameters: Option[List[String]] = None): Map[String, Any] = {
+  def extractParameters(args: Array[String]): Map[String, Any] = {
 
     val parameters = args.sliding(2,1).toList.foldLeft(Map[String, Any]())((newMap, param) => {
       param match {
@@ -26,9 +26,7 @@ object ProcessUtils {
   }
 
   def extractPattern(patternMap: Map[String, Regex], sourceString: String): Map[String, String] = {
-
     patternMap.map(p => p._1 -> p._2.findFirstIn(sourceString).getOrElse(""))
-
   }
 
 
