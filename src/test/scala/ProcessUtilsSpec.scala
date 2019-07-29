@@ -1,8 +1,9 @@
 import com.secureworks.codingchallenge.ProcessUtils
+import org.apache.spark.sql.DataFrame
 import org.scalatest.{FunSpec, GivenWhenThen}
 
 class ProcessUtilsSpec extends FunSpec with GivenWhenThen with SparkTest {
-
+  
   describe("Testing Extract parameters method..") {
     it("should extract parameters as Map given the list of environment args array") {
       Given("Command line arguments array")
@@ -53,6 +54,29 @@ class ProcessUtilsSpec extends FunSpec with GivenWhenThen with SparkTest {
       assert(res1("responseBytes") == ProcessUtils.extractPattern(patternMap, source1)("responseBytes").trim)
       assert(res2("request") == ProcessUtils.extractPattern(patternMap, source2)("request").trim)
     }
+  }
+
+  describe("Test for DataFrame function resulting TopN visits") {
+    it("should result the DataFrame from the output") {
+      Given("A valid DataFrame on input...")
+      val src_df = sparkSession.read.option("header", "true").csv("src/test/resources/sample_data.csv")
+
+      When("check if data frame loaded sample data as expected")
+      assert(src_df.count > 0)
+
+      And("generate converted data frame from the source function..")
+      val result_df = ProcessUtils.getTopVisitsFromDF(src_df, 5, Some("visitor"))
+
+      Then("test valid results")
+      val sampleResultRow = result_df.select("visitor", "freq_count").first()
+
+      assert(result_df.isInstanceOf[DataFrame])
+      assert(sampleResultRow.getAs[String](0) == "unicomp6.unicomp.net")
+      assert(sampleResultRow.getAs[Long](1) == 4)
+
+    }
+
+
   }
 
 

@@ -1,0 +1,15 @@
+visitor,requestDate,method,endpoint,protocol,response
+199.72.81.55,1995-07-01,GET,/history/apollo/,HTTP/1.0,200
+unicomp6.unicomp.net,1995-07-01,GET,/shuttle/countdown/,HTTP/1.0,200
+199.120.110.21,1995-07-01,GET,/shuttle/missions/sts-73/mission-sts-73.html,HTTP/1.0,200
+burger.letters.com,1995-07-01,GET,/shuttle/countdown/liftoff.html,HTTP/1.0,304
+199.120.110.21,1995-07-01,GET,/shuttle/missions/sts-73/sts-73-patch-small.gif,HTTP/1.0,200
+burger.letters.com,1995-07-01,GET,/images/NASA-logosmall.gif,HTTP/1.0,304
+burger.letters.com,1995-07-01,GET,/shuttle/countdown/video/livevideo.gif,HTTP/1.0,200
+205.212.115.106,1995-07-01,GET,/shuttle/countdown/countdown.html,HTTP/1.0,200
+d104.aa.net,1995-07-01,GET,/shuttle/countdown/,HTTP/1.0,200
+129.94.144.152,1995-07-01,GET,/,HTTP/1.0,200
+unicomp6.unicomp.net,1995-07-01,GET,/shuttle/countdown/count.gif,HTTP/1.0,200
+unicomp6.unicomp.net,1995-07-01,GET,/images/NASA-logosmall.gif,HTTP/1.0,200
+unicomp6.unicomp.net,1995-07-01,GET,/images/KSC-logosmall.gif,HTTP/1.0,200
+d104.aa.net,1995-07-01,GET,/shuttle/countdown/count.gif,HTTP/1.0,200

@@ -2,13 +2,10 @@ package com.secureworks.codingchallenge
 
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.SparkFiles
-import org.apache.spark.sql.expressions.Window
-import org.apache.spark.sql.functions.{col, rank, regexp_extract, desc}
+import org.apache.spark.sql.functions.{col, regexp_extract}
 import org.apache.spark.sql.types.{StringType, StructField, StructType}
-import org.apache.spark.sql.{DataFrame, Row, SparkSession}
+import org.apache.spark.sql.{Row, SparkSession}
 import org.apache.spark.storage.StorageLevel
-import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
 
 
 @SerialVersionUID(1000L)
