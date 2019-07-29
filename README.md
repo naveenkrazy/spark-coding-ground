@@ -1,14 +1,59 @@
 # spark-coding-ground
+~~~~
 This Coding project reads log data from FTP URL and process in Spark framework to derive metrics. Data Wrangling clean up and validations are handled by internal logic
+~~~~
+
+# Requirements to run project
+
+~~~~
+This is sbt project. Please install sbt version of 0.1 or higher to run and package assembly from sbt shell.
+- JDK 1.8 or higher
+- Scala 2.11.11
+- scala-lang.org
+- Spark 2.4.3
+- sbt 0.1 or higher
+~~~~
+
+# Steps to run this project
+~~~~
+1. Follow the below commands from root project directory after installing sbt to package assembly
+
+$sbt compile - compiles the project
+$sbt run - runs all the tests objects
+$sbt package builds the jar file
+
+2. Create $SPARK_HOME environment variable after extracting the spark library and follow below steps
+
+- from command line enter : cd $SPARK_HOME
+- Spark-Submit command to run locally: 
+    ./bin/spark2-submit \
+    --master local[*] --driver-memory 4G \
+    --class com.secureworks.codingchallenge.GenerateMetrics --topRecordsSize 5 --consoleResultSize 20 \
+    <path-to-compiled-jar>/spark-metrics_2.11-0.1.jar
+      
+**** project can also be run from Intellij Idea by setting runtime configs for object GenerateMetrics.
+
+~~~~
+
+# Assumptions:
+~~~~
+Requested metrics - Generate top-n most frequent visitors and urls for each day of the trace.
+As per the above requirement it is assumed that results should include two metrics below
+1. Top n most frequent visitors(host IP Address) to the given URL daily
+2. Top n URLS (endpoints) with most visits daily
+
+Also n is variable field and can be passed from run time parameters. It can be controlled by "topRecordsSize" parameter. 
+Total records to print to console can be controlled by "consoleResultSize". Pass the parameters as below
+Ex: GenerateMetrics --topRecordsSize 5 --consoleResultSize 20
+~~~~
+
 
 # Results
-
-These are captured from the spark run locally. DisplaySize and top records size to display can be configured to runtime arguments.
+~~~~
+These are captured from the spark run locally as per above assumptions. DisplaySize and top records size to display can be configured to runtime arguments.
 
 1. Daily Top visits by url
 
-
- 
 +-----------+----------------------------+----------+
 |requestDate|endPoint                    |freq_count|
 +-----------+----------------------------+----------+
@@ -60,3 +105,5 @@ These are captured from the spark run locally. DisplaySize and top records size 
 |1995-07-27 |piweba4y.prodigy.com    |241       |
 |1995-07-27 |mega218.megamed.com     |239       |
 +-----------+------------------------+----------+
+
+~~~~

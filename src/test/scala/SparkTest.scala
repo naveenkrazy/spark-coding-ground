@@ -17,7 +17,6 @@ trait SparkTest extends BeforeAndAfterAll with Suite {
       .set("spark.io.compression.codec", "snappy")
 
     sparkSession = SparkSession.builder.config(sparkConf).getOrCreate()
-
   }
 
   override def afterAll(): Unit = {

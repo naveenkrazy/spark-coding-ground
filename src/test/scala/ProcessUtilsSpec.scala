@@ -28,7 +28,7 @@ class ProcessUtilsSpec extends FunSpec with GivenWhenThen with SparkTest {
         "host" -> """(\S+\.[\S+\.]+\S+)""".r,
         "request" -> """\"(\S+)\s(\S+)\s*(\S*)\"""".r,
         "httpResponse" -> """\s(\d{3})\s""".r,
-        "response" -> """\s(\d+)$""".r
+        "responseBytes" -> """\s(\d+)$""".r
       )
 
       And("Source String to extract matching data")
@@ -37,18 +37,25 @@ class ProcessUtilsSpec extends FunSpec with GivenWhenThen with SparkTest {
 
       And("expected results after extracting patterns....")
       val res1 = Map("host" -> "ppp-mia-30.shadow.net",
-        "request" -> "GET /images/WORLD-logosmall.gif HTTP/1.0",
+        "request" -> """"GET /images/WORLD-logosmall.gif HTTP/1.0"""",
         "httpResponse" -> "200",
-        "response" -> ""
+        "responseBytes" -> "669"
+      )
+
+      val res2 = Map("host" -> "199.72.81.55",
+        "request" -> """"GET /history/ HTTP/1.0"""",
+        "httpResponse" -> "200",
+        "responseBytes" -> "669"
       )
 
       Then("test the result data against expected string")
-
-      ProcessUtils.extractPattern(patternMap, source1)
-
-
+      assert(res1("httpResponse") == ProcessUtils.extractPattern(patternMap, source1)("httpResponse").trim)
+      assert(res1("responseBytes") == ProcessUtils.extractPattern(patternMap, source1)("responseBytes").trim)
+      assert(res2("request") == ProcessUtils.extractPattern(patternMap, source2)("request").trim)
     }
   }
+
+
 
 
 

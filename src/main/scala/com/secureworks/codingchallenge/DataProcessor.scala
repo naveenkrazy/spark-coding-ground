@@ -24,7 +24,7 @@ case class DataProcessor(spark: SparkSession, args: Array[String]) extends Seria
 
   logger.info("Extracting parameters from the console Args.....")
   private val parameters = if(args.length >= 2) {
-    ProcessUtils.extractParameters(args, Some(List("--class")))
+    ProcessUtils.extractParameters(args)
   } else {
     logger.info("no parameters were passed from the command line")
     Map.empty[String, Any]
