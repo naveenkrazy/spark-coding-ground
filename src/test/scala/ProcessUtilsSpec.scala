@@ -1,4 +1,5 @@
 import com.secureworks.codingchallenge.ProcessUtils
+import org.apache.commons.io.IOUtils
 import org.apache.spark.sql.DataFrame
 import org.scalatest.{FunSpec, GivenWhenThen}
 
@@ -59,7 +60,9 @@ class ProcessUtilsSpec extends FunSpec with GivenWhenThen with SparkTest {
   describe("Test for DataFrame function resulting TopN visits") {
     it("should result the DataFrame from the output") {
       Given("A valid DataFrame on input...")
-      val src_df = sparkSession.read.option("header", "true").csv("src/test/resources/sample_data.csv")
+
+      val file_path = getClass.getResource("sample_data.csv").getFile
+      val src_df = sparkSession.read.option("header", "true").csv(file_path)
 
       When("check if data frame loaded sample data as expected")
       assert(src_df.count > 0)
