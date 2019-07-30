@@ -9,15 +9,14 @@ This Coding project reads log data from FTP URL and process in Spark framework t
 This is sbt project. Please install sbt version of 0.1 or higher to run and package assembly from sbt shell.
 - JDK 1.8 or higher
 - Scala 2.11.11
-- scala-lang.org
-- Spark 2.4.3
-- sbt 0.1 or higher
+- Spark 2.1.0 or higher
+- sbt 1.0 or higher
 ~~~~
 
 # Steps to run this project
 ~~~~
 1. Follow the below commands from root project directory after installing sbt to package assembly
-
+$sbt test (runs all the tests)
 $sbt run --topRecordsSize 5 --consoleResultSize 20 (runs all the main code)
 $sbt package (builds the jar file)
 
@@ -28,9 +27,9 @@ $sbt package (builds the jar file)
     ./bin/spark2-submit \
     --master local[*] --driver-memory 4G \
     --class com.secureworks.codingchallenge.GenerateMetrics \
-    <path-to-compiled-jar>/spark-metrics_2.11-0.1.jar --topRecordsSize 5 --consoleResultSize 20 
+    <path-to-compiled-jar>/spark-metrics_2.11-0.1.jar --topRecordsSize 5 --consoleResultSize 20 --sourceUrl ftp://ita.ee.lbl.gov/traces/NASA_access_log_Jul95.gz
     
-Ex: spark-submit --master local[*] --driver-memory 4G --class com.secureworks.codingchallenge.GenerateMetrics /Users/nkurap/Documents/proj_work/spark-metrics_2.11-0.1.jar --topRecordsSize 5 --consoleResultSize 20
+Ex: spark-submit --master local[*] --driver-memory 4G --class com.secureworks.codingchallenge.GenerateMetrics /Users/nkurap/Documents/proj_work/spark-metrics_2.11-0.1.jar --topRecordsSize 5 --consoleResultSize 20 --sourceUrl ftp://ita.ee.lbl.gov/traces/NASA_access_log_Jul95.gz
       
 **** project can also be run from Intellij Idea by setting runtime configs for object GenerateMetrics.
 

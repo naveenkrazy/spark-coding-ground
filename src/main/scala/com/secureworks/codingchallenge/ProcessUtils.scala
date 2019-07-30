@@ -10,6 +10,11 @@ import scala.util.matching.Regex
 
 object ProcessUtils {
 
+  /**
+    *
+    * @param args : Array of strings indicating runtime arguments
+    * @return : Map with argument key,value pairs
+    */
   def extractParameters(args: Array[String]): Map[String, Any] = {
 
     val parameters = args.sliding(2,1).toList.foldLeft(Map[String, Any]())((newMap, param) => {
@@ -25,11 +30,24 @@ object ProcessUtils {
     parameters
   }
 
+  /**
+    *
+    * @param patternMap : Map with key name and regex pattern value to apply to source string
+    * @param sourceString : data to extract the matching strings from Regex
+    * @return : Map with key and Matched string from source
+    */
   def extractPattern(patternMap: Map[String, Regex], sourceString: String): Map[String, String] = {
     patternMap.map(p => p._1 -> p._2.findFirstIn(sourceString).getOrElse(""))
   }
 
 
+  /**
+    *
+    * @param dateString : source date to convert
+    * @param srcFormat: source date format
+    * @param tgtFormat : result date format
+    * @return : formatted string
+    */
   def getFormattedDate(dateString: String, srcFormat : Option[String] = None, tgtFormat: Option[String] = None) : String = {
     val cleanedDate = dateString.replaceAll("\\[", "")
       .replaceAll("\\]", "")
@@ -41,6 +59,13 @@ object ProcessUtils {
   }
 
 
+  /**
+    *
+    * @param inputDF : Input DataFrame having visitor or endPoint columns
+    * @param topN : number of records for given frequency column
+    * @param frequencyColumn: column to compute frequency and topN values
+    * @return : Modified DataFrame
+    */
   def getTopVisitsFromDF(inputDF: DataFrame, topN: Int, frequencyColumn: Option[String] = None): DataFrame = {
     val freqColumn = frequencyColumn.getOrElse("visitor")
     val freq_visitors = inputDF.groupBy("requestDate", s"$freqColumn").count()
