@@ -17,9 +17,9 @@ This is sbt project. Please install sbt version of 0.1 or higher to run and pack
 # Steps to run this project
 ~~~~
 1. Follow the below commands from root project directory after installing sbt to package assembly
-
+$sbt test (runs all the tests)
 $sbt run --topRecordsSize 5 --consoleResultSize 20 (runs all the main code)
-$sbt package (builds the jar file)
+$sbt package (packages and builds the jar file)
 
 2. Create $SPARK_HOME environment variable after extracting the spark library and follow below steps
 
