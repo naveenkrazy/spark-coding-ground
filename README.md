@@ -9,9 +9,8 @@ This Coding project reads log data from FTP URL and process in Spark framework t
 This is sbt project. Please install sbt version of 0.1 or higher to run and package assembly from sbt shell.
 - JDK 1.8 or higher
 - Scala 2.11.11
-- scala-lang.org
-- Spark 2.4.3
-- sbt 0.1 or higher
+- Spark 2.1.0 or higher
+- sbt 1.0 or higher
 ~~~~
 
 # Steps to run this project
