@@ -1,5 +1,6 @@
 package com.secureworks.codingchallenge
 
+
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.SparkFiles
 import org.apache.spark.sql.functions.{col, regexp_extract}
@@ -42,6 +43,7 @@ case class DataProcessor(spark: SparkSession, args: Array[String]) extends Seria
     "httpCodePattern" -> """\s(\d{3})\s""".r,
     "responseByteSizePattern" -> """\s(\d+)$""".r
   )
+
 
    def process() = {
     logger.info("Starting the log processing in spark......")

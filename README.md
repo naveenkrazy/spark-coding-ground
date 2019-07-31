@@ -7,13 +7,14 @@ This Coding project reads log data from FTP URL and process in Spark framework t
 
 ~~~~
 This is sbt project. Please install sbt version of 0.1 or higher to run and package assembly from sbt shell.
-- JDK 1.8 or higher
-- Scala 2.11.11
-- Spark 2.1.0 or higher
-- sbt 1.0 or higher
+- JDK 1.8 or higher and set JAVA_HOME environment variable
+- Scala 2.11.11 and set SCALA_HOME environment variable
+- Spark 2.1.0 or higher and set SPARK_HOME environment variable
+- sbt 0.1 or higher
+- Docker for Desktop/Mac
 ~~~~
 
-# Steps to run this project
+# Steps to run this project from local 
 ~~~~
 1. Follow the below commands from root project directory after installing sbt to package assembly
 $sbt test (runs all the tests)
@@ -30,9 +31,34 @@ $sbt package (packages and builds the jar file)
     <path-to-compiled-jar>/spark-metrics_2.11-0.1.jar --topRecordsSize 5 --consoleResultSize 20 --sourceUrl ftp://ita.ee.lbl.gov/traces/NASA_access_log_Jul95.gz
     
 Ex: spark-submit --master local[*] --driver-memory 4G --class com.secureworks.codingchallenge.GenerateMetrics /Users/nkurap/Documents/proj_work/spark-metrics_2.11-0.1.jar --topRecordsSize 5 --consoleResultSize 20 --sourceUrl ftp://ita.ee.lbl.gov/traces/NASA_access_log_Jul95.gz
-      
-**** project can also be run from Intellij Idea by setting runtime configs for object GenerateMetrics.
 
+**** project can also be run from Intellij Idea by setting runtime configs for object GenerateMetrics.
+~~~~
+
+
+# Steps to run this project from Docker
+~~~~
+
+After installing Docker for desktop and doing git clone of this project into local follow below steps
+
+1. Build Docker container
+ docker build -t <tag-name> .
+
+2. Run Docker
+ docker run -it -p 4040:4040 -p 8080:8080 -p 8081:8081 -h spark --name=spark <tag-name>:latest
+ 
+3. From Docker console run below commands to package application and spark submit to see the results
+ - sbt test
+ - sbt package 
+ - spark submit command:
+   spark-submit --master local[*] --driver-memory 2G --class com.secureworks.codingchallenge.GenerateMetrics /root/target/scala-2.11/spark-metrics_2.11-0.1.jar --topRecordsSize 5 --consoleResultSize 20 --sourceUrl /root/NASA_access_log_Jul95.gz
+
+**** Additionally pull the published image from Docker hub and run it and follow steps 2 and 3 from above ****
+
+command to pull: docker pull naveenkrazy/spark-metrics
+
+
+      
 ~~~~
 
 # Assumptions:
