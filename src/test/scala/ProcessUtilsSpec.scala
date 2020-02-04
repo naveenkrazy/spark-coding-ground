@@ -1,4 +1,4 @@
-import com.secureworks.codingchallenge.ProcessUtils
+import com.codingground.sparkbatch.logprocessor.ProcessUtils
 import org.apache.spark.sql.DataFrame
 import org.scalatest.{FunSpec, GivenWhenThen}
 

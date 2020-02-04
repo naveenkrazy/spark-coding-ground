@@ -1,4 +1,4 @@
-package com.secureworks.codingchallenge
+package com.codingground.sparkbatch.logprocessor
 
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.expressions.Window
